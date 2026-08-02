@@ -4,102 +4,128 @@ Real-time traffic prediction app for Mexican cities.
 
 ## Overview
 
-Traffic Genie is an intelligent traffic prediction system that helps users anticipate and navigate congestion in Mexican cities. By leveraging machine learning and real-time data, we provide actionable traffic insights to improve commute planning and reduce travel time.
+Traffic Genie is an intelligent traffic prediction system that helps users anticipate and navigate congestion in Mexican cities. By combining machine learning with real-time data, it provides actionable traffic insights for better commute planning and reduced travel time.
 
 ## Features
 
-- **Real-time Data Collection**: Hourly traffic data via Google Maps API
-- **ML-Powered Predictions**: Trained models that predict congestion levels
-- **Interactive Dashboard**: Next.js-based UI for viewing traffic insights
-- **Scalable Architecture**: Microservices design with Python/FastAPI backend
+- Real-time traffic data collection
+- ML-powered congestion predictions
+- Interactive dashboard for traffic insights
+- Scalable architecture built with Python and Next.js
 
 ## Tech Stack
 
-- **Frontend**: Next.js (React)
-- **Backend**: Python, FastAPI
-- **Database**: PostgreSQL
-- **Data Source**: Google Maps API
-- **ML Framework**: TensorFlow/Scikit-learn (or equivalent)
+- Frontend: Next.js (React)
+- Backend: Python, FastAPI
+- Database: PostgreSQL
+- Data Source: Google Maps API
+- ML Framework: TensorFlow or Scikit-learn
 
-## Architecture
+## Prerequisites
 
-```
-Google Maps API → Data Collection → ML Model → FastAPI Microservice → PostgreSQL
-                                                           ↓
-                                                    Next.js Dashboard
-```
+Before you begin, make sure you have:
 
-## Getting Started
-
-### Prerequisites
-
-- Python 3.8+
-- Node.js 16+
+- Python 3.10+
+- Node.js 18+
+- npm 9+
 - PostgreSQL 12+
-- Google Maps API key
+- A Google Maps API key
 
-### Installation
+## Local Setup
 
-1. Clone the repository:
+### 1. Clone the repository
+
 ```bash
 git clone <repository-url>
-cd traffic-genie
+cd TrafficGenie
 ```
 
-2. Set up the backend:
+### 2. Set up the backend
+
 ```bash
-cd backend
+cd traffic-genie/backend
+python -m venv .venv
+```
+
+On Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+On macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Then install the Python dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-3. Set up the frontend:
+Create a local environment file:
+
 ```bash
-cd frontend
+copy NUL .env
+```
+
+Add your configuration values to the file, for example:
+
+```env
+GOOGLE_MAPS_API_KEY=your_api_key_here
+```
+
+Start the API server:
+
+```bash
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+The backend will be available at http://localhost:8000/health.
+
+### 3. Set up the frontend
+
+Open a new terminal and run:
+
+```bash
+cd traffic-genie/frontend
 npm install
-```
-
-4. Configure environment variables:
-```bash
-cp .env.example .env
-# Edit .env with your configuration
-```
-
-5. Run the application:
-```bash
-# Terminal 1: Start FastAPI backend
-python -m uvicorn main:app --reload
-
-# Terminal 2: Start Next.js frontend
 npm run dev
 ```
 
-## Usage
-
-Access the dashboard at `http://localhost:3000` to view real-time traffic predictions for supported Mexican cities.
+The frontend will be available at http://localhost:3000.
 
 ## Project Structure
 
-```
+```text
 traffic-genie/
-├── backend/              # FastAPI microservice
+├── backend/             # FastAPI backend
+│   ├── app/             # Application entrypoint and routes
 │   ├── models/          # ML models
-│   ├── api/             # API endpoints
-│   └── services/        # Data collection & processing
+│   └── services/        # Data collection and processing
 ├── frontend/            # Next.js dashboard
-│   ├── pages/
-│   ├── components/
-│   └── styles/
-└── database/            # PostgreSQL schemas
+│   ├── app/             # App router pages and layout
+│   └── public/          # Static assets
+└── README.md            # Project documentation
 ```
+
+## Verification
+
+After both services are running, verify that:
+
+- The backend responds at http://localhost:8000/health
+- The frontend loads at http://localhost:3000
 
 ## Contributing
 
-Contributions are welcome! Please submit pull requests or open issues for bug reports and feature requests.
+Contributions are welcome. Please open an issue or submit a pull request with your improvements.
 
 ## License
 
-[Add your license here]
+This project is currently unlicensed. Add a license if you plan to distribute it publicly.
 
 ## Contact
 
-For questions or feedback, please reach out to the team.
+For questions or feedback, please reach out to the project team.
